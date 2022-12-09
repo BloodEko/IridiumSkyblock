@@ -31,3 +31,5 @@ local.properties
 build/
 !gradle-wrapper.jar
 **/build/
+.classpath
+.project
