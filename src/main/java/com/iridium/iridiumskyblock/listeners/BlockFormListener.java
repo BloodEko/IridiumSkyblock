@@ -1,15 +1,21 @@
 package com.iridium.iridiumskyblock.listeners;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
-import com.iridium.iridiumskyblock.IridiumSkyblock;
-import com.iridium.iridiumskyblock.RandomAccessList;
-import com.iridium.iridiumskyblock.enhancements.GeneratorEnhancementData;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFormEvent;
 
-import java.util.*;
+import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.iridium.iridiumskyblock.IridiumSkyblock;
+import com.iridium.iridiumskyblock.RandomAccessList;
+import com.iridium.iridiumskyblock.enhancements.GeneratorEnhancementData;
+
 
 public class BlockFormListener implements Listener {
 

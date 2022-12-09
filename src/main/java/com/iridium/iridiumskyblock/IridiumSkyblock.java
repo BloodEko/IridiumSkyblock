@@ -1,25 +1,5 @@
 package com.iridium.iridiumskyblock;
 
-import com.iridium.iridiumskyblock.configs.*;
-import com.iridium.iridiumskyblock.database.Island;
-import com.iridium.iridiumskyblock.database.User;
-import com.iridium.iridiumskyblock.generators.VoidGenerator;
-import com.iridium.iridiumskyblock.listeners.*;
-import com.iridium.iridiumskyblock.managers.*;
-import com.iridium.iridiumskyblock.placeholders.IslandPlaceholderBuilder;
-import com.iridium.iridiumskyblock.placeholders.TeamChatPlaceholderBuilder;
-import com.iridium.iridiumskyblock.placeholders.UserPlaceholderBuilder;
-import com.iridium.iridiumteams.IridiumTeams;
-import com.iridium.iridiumteams.managers.MissionManager;
-import com.iridium.iridiumteams.managers.ShopManager;
-import lombok.Getter;
-import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.generator.ChunkGenerator;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +10,51 @@ import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.Objects;
+
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.RegisteredServiceProvider;
+import org.bukkit.plugin.java.JavaPluginLoader;
+
+import com.iridium.iridiumskyblock.configs.BankItems;
+import com.iridium.iridiumskyblock.configs.BlockValues;
+import com.iridium.iridiumskyblock.configs.Commands;
+import com.iridium.iridiumskyblock.configs.Configuration;
+import com.iridium.iridiumskyblock.configs.Enhancements;
+import com.iridium.iridiumskyblock.configs.Inventories;
+import com.iridium.iridiumskyblock.configs.Messages;
+import com.iridium.iridiumskyblock.configs.Missions;
+import com.iridium.iridiumskyblock.configs.Permissions;
+import com.iridium.iridiumskyblock.configs.SQL;
+import com.iridium.iridiumskyblock.configs.Schematics;
+import com.iridium.iridiumskyblock.configs.Shop;
+import com.iridium.iridiumskyblock.configs.Top;
+import com.iridium.iridiumskyblock.database.Island;
+import com.iridium.iridiumskyblock.database.User;
+import com.iridium.iridiumskyblock.generators.VoidGenerator;
+import com.iridium.iridiumskyblock.listeners.BlockFormListener;
+import com.iridium.iridiumskyblock.listeners.EnhancementUpdateListener;
+import com.iridium.iridiumskyblock.listeners.PlayerInteractListener;
+import com.iridium.iridiumskyblock.listeners.PlayerJoinListener;
+import com.iridium.iridiumskyblock.listeners.PlayerMoveListener;
+import com.iridium.iridiumskyblock.listeners.PlayerPortalListener;
+import com.iridium.iridiumskyblock.listeners.PlayerTeleportListener;
+import com.iridium.iridiumskyblock.managers.CommandManager;
+import com.iridium.iridiumskyblock.managers.DatabaseManager;
+import com.iridium.iridiumskyblock.managers.IslandManager;
+import com.iridium.iridiumskyblock.managers.SchematicManager;
+import com.iridium.iridiumskyblock.managers.UserManager;
+import com.iridium.iridiumskyblock.placeholders.IslandPlaceholderBuilder;
+import com.iridium.iridiumskyblock.placeholders.TeamChatPlaceholderBuilder;
+import com.iridium.iridiumskyblock.placeholders.UserPlaceholderBuilder;
+import com.iridium.iridiumteams.IridiumTeams;
+import com.iridium.iridiumteams.managers.MissionManager;
+import com.iridium.iridiumteams.managers.ShopManager;
+
+import lombok.Getter;
+import net.milkbowl.vault.economy.Economy;
 
 @Getter
 public class IridiumSkyblock extends IridiumTeams<Island, User> {
