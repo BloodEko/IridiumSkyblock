@@ -7,6 +7,8 @@ import com.iridium.iridiumskyblock.managers.IslandManager;
 import com.iridium.iridiumteams.Rank;
 import com.iridium.iridiumteams.database.Team;
 import com.j256.ormlite.field.DatabaseField;
+import com.sk89q.worldedit.math.BlockVector3;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -118,6 +120,26 @@ public class Island extends Team {
         int xOff = IridiumSkyblock.getInstance().getConfiguration().blockedDistance;
         int zOff = getSize() / 2;
         return getCenter(world).add(new Location(world, xOff, 0, zOff));
+    }
+    
+    /**
+     * Returns the lower blocked position.
+     */
+    public BlockVector3 getBlockedPos1(int minWorldHeight) {
+        int xOff = 1;
+        int zOff = IridiumSkyblock.getInstance().getConfiguration().distance / 2;
+        Location pos = getCenter(null);
+        return BlockVector3.at(pos.getBlockX() + xOff, minWorldHeight, pos.getBlockZ() - zOff);
+    }
+    
+    /**
+     * Returns the upper blocked position.
+     */
+    public BlockVector3 getBlockedPos2(int maxWorldHeight) {
+        int xOff = IridiumSkyblock.getInstance().getConfiguration().blockedDistance;
+        int zOff = IridiumSkyblock.getInstance().getConfiguration().distance / 2;
+        Location pos = getCenter(null);
+        return BlockVector3.at(pos.getBlockX() + xOff, maxWorldHeight, pos.getBlockZ() + zOff);
     }
 
     public int getSize() {

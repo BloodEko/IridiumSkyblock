@@ -19,6 +19,14 @@ import com.iridium.iridiumteams.database.*;
 import com.iridium.iridiumteams.managers.TeamManager;
 import com.iridium.iridiumteams.missions.Mission;
 import com.iridium.iridiumteams.missions.MissionType;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.managers.RegionManager;
+import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -96,6 +104,11 @@ public class IslandManager extends TeamManager<Island, User> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Creates an island, pastes a schematic, set the spawn point, 
+     * sets a worldguard region and finally teleports the player.
+     * Returns the newly created island.
+     */
     @Override
     public CompletableFuture<Island> createTeam(@NotNull Player owner, String name) {
         CompletableFuture<String> schematicNameCompletableFuture = new CompletableFuture<>();
@@ -104,7 +117,6 @@ public class IslandManager extends TeamManager<Island, User> {
 
             User user = IridiumSkyblock.getInstance().getUserManager().getUser(owner);
             Island island = new Island(name);
-
 
             IridiumSkyblock.getInstance().getDatabaseManager().registerIsland(island).join();
 
@@ -119,6 +131,13 @@ public class IslandManager extends TeamManager<Island, User> {
             Location home = island.getCenter(world).add(offset);
             home.setYaw(schemConfig.yawHome);
             island.setHome(home);
+            
+            RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+            RegionManager manager = container.get(BukkitAdapter.adapt(world));
+            BlockVector3 rgPos1 = island.getBlockedPos1(world.getMinHeight());
+            BlockVector3 rgPos2 = island.getBlockedPos2(world.getMaxHeight());
+            ProtectedRegion region = new ProtectedCuboidRegion("island" + island.getId(), false, rgPos1, rgPos2);
+            manager.addRegion(region);
 
             //TODO what if they close the GUI, the completable future will never finish, will this cause memory leaks?
             generateIsland(island, schemConfig).join();
@@ -194,9 +213,15 @@ public class IslandManager extends TeamManager<Island, User> {
     @Override
     public void deleteTeam(Island island, User user) {
         IridiumSkyblock.getInstance().getDatabaseManager().getIslandTableManager().delete(island);
-        //TODO: delete wg region here. if even.
-        //island.getId()
+        deleteWgRegion(island);
         getMembersOnIsland(island).forEach(member -> PlayerUtils.teleportSpawn(member.getPlayer()));
+    }
+    
+    private void deleteWgRegion(Island island) {
+        RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        World world = getWorld(World.Environment.NORMAL);
+        RegionManager manager = container.get(BukkitAdapter.adapt(world));
+        manager.removeRegion("island" + island.getId());
     }
 
     @Override
