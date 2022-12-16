@@ -58,6 +58,7 @@ public class SchematicManager {
      */
     private CompletableFuture<Void> pasteSchematic(Island island, Schematics.SchematicWorld schematic, World world) {
         int xOff = IridiumSkyblock.getInstance().getConfiguration().blockedDistance / 2;
+        xOff += IridiumSkyblock.getInstance().getConfiguration().islandXoff;
         Location center = island.getCenter(world).add(xOff, schematic.islandHeight, 0);
         
         File file = schematicFiles.getOrDefault(schematic.schematicID, schematicFiles.values().stream().findFirst().orElse(null));

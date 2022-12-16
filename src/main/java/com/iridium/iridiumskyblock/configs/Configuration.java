@@ -29,6 +29,9 @@ public class Configuration extends com.iridium.iridiumteams.configs.Configuratio
     /** The distance that will be blocked within the island. */
     public int blockedDistance = 30;
     
+    /** The xoff which will be applied to the schematic pasting. */
+    public int islandXoff = 1;
+    
     public Item islandCrystal = new Item(XMaterial.NETHER_STAR, 1, "&9*** &9&lIsland Crystal &9***", Arrays.asList(
             "",
             "&9%amount% Island Crystals",
