@@ -10,6 +10,9 @@ public class PlayerTeleportListener implements Listener {
 
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event) {
+        if (event.getPlayer() == null || event.getPlayer().hasMetadata("NPC")) { //Ignore Citizens startup.
+            return;
+        }
         Bukkit.getScheduler().runTask(IridiumSkyblock.getInstance(), () -> IridiumSkyblock.getInstance().getTeamManager().sendIslandBorder(event.getPlayer()));
     }
 
