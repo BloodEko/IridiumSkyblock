@@ -25,7 +25,7 @@ public class PlayerPortalListener implements Listener {
                     return;
                 }
                 World world = Objects.equals(event.getFrom().getWorld(), nether) ? IridiumSkyblock.getInstance().getTeamManager().getWorld(World.Environment.NORMAL) : nether;
-                event.setTo(island.getCenter(world));
+                event.setTo(island.newSpawnLocation(world));
             }
         });
     }

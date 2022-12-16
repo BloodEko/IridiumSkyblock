@@ -38,7 +38,11 @@ public class Island extends Team {
     public double getValue() {
         return IridiumSkyblock.getInstance().getTeamManager().getTeamValue(this);
     }
-
+    
+    /**
+     * Returns a new location for the the fixed center point which has 
+     * a constant distance to other centers in the world.
+     */
     public Location getCenter(World world) {
         if (getId() == 1) return new Location(world, 0, 0, 0);
         // In this algorithm position 2 is where id 1 is, position 3 is where id 2 is, ect.
@@ -76,25 +80,44 @@ public class Island extends Team {
 
         return location.multiply(IridiumSkyblock.getInstance().getConfiguration().distance);
     }
-
-    public Location getPosition1(World world) {
-        if (world == null) {
-            double size = getSize() / 2.00;
-            return getCenter(null).subtract(new Location(null, size, 0, size));
-        }
-
-        double size = getSize() / 2.00;
-        return getCenter(world).subtract(new Location(world, size, 0, size));
+    
+    /**
+     * Returns a new location, for the center of the worldborder.
+     */
+    public Location newWorldBorderCenter(World world) {
+        int blocked = IridiumSkyblock.getInstance().getConfiguration().blockedDistance;
+                   // 50      / 2  -   20     = 5
+                   // 100     / 2  -   20     = 30
+                   // 150     / 2  -   20     = 55
+        int xOff = (getSize() / 2) -  blocked;
+        return getCenter(world).subtract(new Location(world, xOff, 0, 0));
     }
-
+    
+    /**
+     * Returns a new location, where the player would spawn on the island, facing west.
+     */
+    public Location newSpawnLocation(World world) {
+        //int yaw = 90; //west
+        //return getCenter(world).add(new Location(world, 0, 0, 0, yaw, 0));
+        return getCenter(world);
+    }
+    
+    /**
+     * Returns the lower 2D location for that island in that world.
+     */
+    public Location getPosition1(World world) {
+        int xOff = getSize() - IridiumSkyblock.getInstance().getConfiguration().blockedDistance;
+        int zOff = getSize() / 2;
+        return getCenter(world).subtract(new Location(world, xOff, 0, zOff));
+    }
+    
+    /**
+     * Returns the upper 2D location for that island in that world.
+     */
     public Location getPosition2(World world) {
-        if (world == null) {
-            double size = getSize() / 2.00;
-            return getCenter(null).add(new Location(null, size, 0, size));
-        }
-
-        double size = getSize() / 2.00;
-        return getCenter(world).add(new Location(world, size, 0, size));
+        int xOff = IridiumSkyblock.getInstance().getConfiguration().blockedDistance;
+        int zOff = getSize() / 2;
+        return getCenter(world).add(new Location(world, xOff, 0, zOff));
     }
 
     public int getSize() {
@@ -127,6 +150,19 @@ public class Island extends Team {
     public void setColor(Color color) {
         this.color = color;
         IridiumSkyblock.getInstance().getTeamManager().getMembersOnIsland(this).forEach(user -> IridiumSkyblock.getInstance().getTeamManager().sendIslandBorder(user.getPlayer()));
+    }
+    
+    @Override
+    public void setHome(Location home) {
+        System.out.println("Setting home loc: " + home);
+        super.setHome(home);
+    }
+    
+    @Override
+    public Location getHome() {
+        Location loc = super.getHome();
+        System.out.println("Getting home loc: " + loc);
+        return loc;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.iridium.iridiumskyblock.commands;
 
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumskyblock.IridiumSkyblock;
+import com.iridium.iridiumskyblock.configs.Schematics.SchematicConfig;
 import com.iridium.iridiumskyblock.database.Island;
 import com.iridium.iridiumskyblock.database.User;
 import com.iridium.iridiumskyblock.gui.RegenGUI;
@@ -50,8 +51,10 @@ public class RegenCommand extends Command<Island, User> {
                 .forEach(member -> member.sendMessage(StringUtils.color(IridiumSkyblock.getInstance().getMessages().regeneratingIsland
                         .replace("%prefix%", IridiumSkyblock.getInstance().getConfiguration().prefix)
                 )));
+        
 
-        IridiumSkyblock.getInstance().getIslandManager().generateIsland(island, schematicConfig.get()).thenRun(() -> Bukkit.getScheduler().runTask(IridiumSkyblock.getInstance(), () -> {
+        SchematicConfig schemConfig = IridiumSkyblock.getInstance().getSchematics().schematics.get(schematicConfig.get());
+        IridiumSkyblock.getInstance().getIslandManager().generateIsland(island, schemConfig).thenRun(() -> Bukkit.getScheduler().runTask(IridiumSkyblock.getInstance(), () -> {
             if (IridiumSkyblock.getInstance().getTeamManager().teleport(player, island.getHome(), island)) {
                 player.sendMessage(StringUtils.color(IridiumSkyblock.getInstance().getMessages().teleportingHome
                         .replace("%prefix%", IridiumSkyblock.getInstance().getConfiguration().prefix)

@@ -22,7 +22,13 @@ public class Configuration extends com.iridium.iridiumteams.configs.Configuratio
     public String spawnWorldName = "world";
 
     public boolean obsidianBucket = true;
+    
+    /** The absolute distance between the island centers. */
     public int distance = 151;
+    
+    /** The distance that will be blocked within the island. */
+    public int blockedDistance = 30;
+    
     public Item islandCrystal = new Item(XMaterial.NETHER_STAR, 1, "&9*** &9&lIsland Crystal &9***", Arrays.asList(
             "",
             "&9%amount% Island Crystals",

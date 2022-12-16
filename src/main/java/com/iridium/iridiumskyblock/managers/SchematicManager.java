@@ -52,18 +52,23 @@ public class SchematicManager {
             }
         });
     }
-
+    
+    /**
+     * Pastes the island-schematic with it's center at the middle of the blocked area.
+     */
     private CompletableFuture<Void> pasteSchematic(Island island, Schematics.SchematicWorld schematic, World world) {
-        CompletableFuture<Void> completableFuture = new CompletableFuture<>();
-        Location location = island.getCenter(world);
-        location.add(0, schematic.islandHeight, 0);
+        int xOff = IridiumSkyblock.getInstance().getConfiguration().blockedDistance / 2;
+        Location center = island.getCenter(world).add(xOff, schematic.islandHeight, 0);
+        
         File file = schematicFiles.getOrDefault(schematic.schematicID, schematicFiles.values().stream().findFirst().orElse(null));
+        CompletableFuture<Void> completableFuture = new CompletableFuture<>();
+        
         Bukkit.getScheduler().runTask(IridiumSkyblock.getInstance(), () -> {
             if (file == null) {
-                location.getBlock().setType(Material.BEDROCK);
+                center.getBlock().setType(Material.BEDROCK);
                 IridiumSkyblock.getInstance().getLogger().warning("Could not find schematic " + schematic.schematicID);
             } else {
-                schematicPaster.paste(file, location, schematic.ignoreAirBlocks, completableFuture);
+                schematicPaster.paste(file, center, schematic.ignoreAirBlocks, completableFuture);
             }
         });
         return completableFuture;

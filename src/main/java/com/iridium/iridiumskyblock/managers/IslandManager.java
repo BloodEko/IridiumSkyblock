@@ -8,6 +8,7 @@ import com.iridium.iridiumcore.utils.Placeholder;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumskyblock.IridiumSkyblock;
 import com.iridium.iridiumskyblock.configs.Schematics;
+import com.iridium.iridiumskyblock.configs.Schematics.SchematicConfig;
 import com.iridium.iridiumskyblock.database.Island;
 import com.iridium.iridiumskyblock.database.User;
 import com.iridium.iridiumskyblock.gui.CreateGUI;
@@ -107,16 +108,24 @@ public class IslandManager extends TeamManager<Island, User> {
 
             IridiumSkyblock.getInstance().getDatabaseManager().registerIsland(island).join();
 
-            island.setHome(island.getCenter(getWorld(World.Environment.NORMAL)).add(0, 100, 0));
-
             user.setTeam(island);
             user.setUserRank(Rank.OWNER.getId());
 
+            String schematicId = schematicNameCompletableFuture.join();
+            SchematicConfig schemConfig = IridiumSkyblock.getInstance().getSchematics().schematics.get(schematicId);
+            
+            World world = getWorld(World.Environment.NORMAL);
+            Location offset = new Location(world, schemConfig.xHome, schemConfig.yHome,schemConfig.zHome, 0, 0);
+            Location home = island.getCenter(world).add(offset);
+            home.setYaw(schemConfig.yawHome);
+            island.setHome(home);
+
             //TODO what if they close the GUI, the completable future will never finish, will this cause memory leaks?
-            generateIsland(island, schematicNameCompletableFuture.join()).join();
+            generateIsland(island, schemConfig).join();
             Bukkit.getScheduler().runTask(IridiumSkyblock.getInstance(), () -> {
                 owner.teleport(island.getHome());
-                IridiumSkyblock.getInstance().getNms().sendTitle(owner, IridiumSkyblock.getInstance().getConfiguration().islandCreateTitle, IridiumSkyblock.getInstance().getConfiguration().islandCreateSubTitle, 20, 40, 20);
+                IridiumSkyblock.getInstance().getNms().sendTitle(owner, IridiumSkyblock.getInstance().getConfiguration().islandCreateTitle, 
+                                                                        IridiumSkyblock.getInstance().getConfiguration().islandCreateSubTitle, 20, 40, 20);
             });
 
             return island;
@@ -126,9 +135,8 @@ public class IslandManager extends TeamManager<Island, User> {
         });
     }
 
-    public CompletableFuture<Void> generateIsland(Island island, String schematic) {
+    public CompletableFuture<Void> generateIsland(Island island, Schematics.SchematicConfig schematicConfig) {
         return CompletableFuture.runAsync(() -> {
-            Schematics.SchematicConfig schematicConfig = IridiumSkyblock.getInstance().getSchematics().schematics.get(schematic);
             deleteIslandBlocks(island).join();
             IridiumSkyblock.getInstance().getSchematicManager().pasteSchematic(island, schematicConfig).join();
         });
@@ -186,7 +194,8 @@ public class IslandManager extends TeamManager<Island, User> {
     @Override
     public void deleteTeam(Island island, User user) {
         IridiumSkyblock.getInstance().getDatabaseManager().getIslandTableManager().delete(island);
-
+        //TODO: delete wg region here. if even.
+        //island.getId()
         getMembersOnIsland(island).forEach(member -> PlayerUtils.teleportSpawn(member.getPlayer()));
     }
 
@@ -455,7 +464,7 @@ public class IslandManager extends TeamManager<Island, User> {
 
     public void sendIslandBorder(Player player) {
         getTeamViaPlayerLocation(player).ifPresent(island -> {
-            final Location centre = island.getCenter(player.getWorld()).clone();
+            final Location centre = island.newWorldBorderCenter(player.getWorld());
 
             Bukkit.getScheduler().runTask(IridiumSkyblock.getInstance(), () -> IridiumSkyblock.getInstance().getNms().sendWorldBorder(player, island.getColor(), island.getSize() + (island.getSize() % 2 == 0 ? 1 : 0), centre));
         });
