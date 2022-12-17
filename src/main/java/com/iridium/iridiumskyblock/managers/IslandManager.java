@@ -75,15 +75,27 @@ public class IslandManager extends TeamManager<Island, User> {
         ).findFirst();
     }
 
+    /**
+     * Tries to lookup the player by name and to find his island.
+     * Otherwise tries to lookup the island by name. Or returns an empty optional.
+     */
+    @SuppressWarnings("deprecation")
     @Override
     public Optional<Island> getTeamViaNameOrPlayer(String name) {
         if (name == null || name.equals("")) return Optional.empty();
         OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(name);
-        Optional<Island> team = IridiumSkyblock.getInstance().getUserManager().getUser(targetPlayer).getIsland();
-        if (!team.isPresent()) {
-            return getTeamViaName(name);
+        Optional<Island> team = getIsland(targetPlayer);
+        if (team.isPresent()) {
+            return team;
         }
-        return team;
+        return getTeamViaName(name);
+    }
+    
+    /**
+     * Returns the optional island for this player.
+     */
+    public Optional<Island> getIsland(@NotNull OfflinePlayer player) {
+        return IridiumSkyblock.getInstance().getUserManager().getUser(player).getIsland();
     }
 
     @Override
@@ -111,6 +123,13 @@ public class IslandManager extends TeamManager<Island, User> {
      */
     @Override
     public CompletableFuture<Island> createTeam(@NotNull Player owner, String name) {
+        if (getIsland(owner).isPresent()) {
+            IridiumSkyblock plugin = IridiumSkyblock.getInstance();
+            owner.sendMessage(StringUtils.color(plugin.getMessages().alreadyHaveTeam
+                    .replace("%prefix%", plugin.getConfiguration().prefix)
+            ));
+            return null;
+        }
         CompletableFuture<String> schematicNameCompletableFuture = new CompletableFuture<>();
         owner.openInventory(new CreateGUI(owner.getOpenInventory().getTopInventory(), schematicNameCompletableFuture).getInventory());
         return CompletableFuture.supplyAsync(() -> {
