@@ -40,6 +40,7 @@ import com.iridium.iridiumskyblock.listeners.PlayerInteractListener;
 import com.iridium.iridiumskyblock.listeners.PlayerJoinListener;
 import com.iridium.iridiumskyblock.listeners.PlayerMoveListener;
 import com.iridium.iridiumskyblock.listeners.PlayerPortalListener;
+import com.iridium.iridiumskyblock.listeners.PlayerRespawnListener;
 import com.iridium.iridiumskyblock.listeners.PlayerTeleportListener;
 import com.iridium.iridiumskyblock.managers.CommandManager;
 import com.iridium.iridiumskyblock.managers.DatabaseManager;
@@ -159,6 +160,7 @@ public class IridiumSkyblock extends IridiumTeams<Island, User> {
         Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerPortalListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerRespawnListener(), this);
     }
 
     @Override
