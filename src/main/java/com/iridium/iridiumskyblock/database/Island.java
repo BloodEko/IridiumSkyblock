@@ -173,19 +173,6 @@ public class Island extends Team {
         this.color = color;
         IridiumSkyblock.getInstance().getTeamManager().getMembersOnIsland(this).forEach(user -> IridiumSkyblock.getInstance().getTeamManager().sendIslandBorder(user.getPlayer()));
     }
-    
-    @Override
-    public void setHome(Location home) {
-        System.out.println("Setting home loc: " + home);
-        super.setHome(home);
-    }
-    
-    @Override
-    public Location getHome() {
-        Location loc = super.getHome();
-        System.out.println("Getting home loc: " + loc);
-        return loc;
-    }
 
     @Override
     public @NotNull String getName() {
