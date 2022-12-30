@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.managers;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumteams.*;
 import com.iridium.iridiumteams.api.EnhancementUpdateEvent;

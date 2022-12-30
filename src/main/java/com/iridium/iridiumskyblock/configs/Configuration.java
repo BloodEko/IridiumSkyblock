@@ -3,7 +3,7 @@ package com.iridium.iridiumskyblock.configs;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Color;
 import com.iridium.iridiumcore.Item;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.World;
 
 import java.util.Arrays;

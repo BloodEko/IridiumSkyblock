@@ -2,8 +2,8 @@ package com.iridium.iridiumteams.configs;
 
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
-import com.iridium.iridiumcore.dependencies.xseries.XPotion;
+import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XPotion;
 import com.iridium.iridiumteams.enhancements.*;
 
 import java.util.Arrays;

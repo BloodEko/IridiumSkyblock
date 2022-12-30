@@ -2,7 +2,7 @@ package com.iridium.iridiumteams.configs;
 
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.NumberFormatter;
 import com.iridium.iridiumteams.UserRank;
 

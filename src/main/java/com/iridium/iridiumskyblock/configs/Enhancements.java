@@ -2,7 +2,7 @@ package com.iridium.iridiumskyblock.configs;
 
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumskyblock.enhancements.GeneratorEnhancementData;
 import com.iridium.iridiumskyblock.enhancements.SizeEnhancementData;
 import com.iridium.iridiumskyblock.enhancements.VoidEnhancementData;

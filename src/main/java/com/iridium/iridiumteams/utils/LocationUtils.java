@@ -1,6 +1,6 @@
 package com.iridium.iridiumteams.utils;
 
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.multiversion.MultiVersion;
 import com.iridium.iridiumteams.IridiumTeams;
 import lombok.Setter;

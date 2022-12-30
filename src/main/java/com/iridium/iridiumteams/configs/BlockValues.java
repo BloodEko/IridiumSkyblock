@@ -2,7 +2,7 @@ package com.iridium.iridiumteams.configs;
 
 
 import com.google.common.collect.ImmutableMap;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.bukkit.entity.EntityType;

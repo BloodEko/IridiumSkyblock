@@ -3,7 +3,7 @@ package com.iridium.iridiumskyblock.configs;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Item;
 import com.iridium.iridiumcore.dependencies.fasterxml.annotation.JsonIgnoreProperties;
-import com.iridium.iridiumcore.dependencies.xseries.XMaterial;
+import com.cryptomorin.xseries.XMaterial;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.bukkit.block.Biome;
