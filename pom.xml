@@ -1,0 +1,250 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.iridium</groupId>
+  <artifactId>IridiumSkyblock</artifactId>
+  <version>4.0.1</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <build>
+    <finalName>${artifactId}-${version}</finalName>
+    <resources>
+        <resource>
+            <directory>src/main/resources/</directory>
+            <includes>
+                <include>plugin.yml</include>
+                <include>desert.schem</include>
+                <include>desert_end.schem</include>
+                <include>desert_nether.schem</include>
+                <include>jungle.schem</include>
+                <include>jungle_end.schem</include>
+                <include>jungle_nether.schem</include>
+                <include>mushroom.schem</include>
+                <include>mushroom_end.schem</include>
+                <include>mushroom_nether.schem</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+    </resources>
+    
+    <plugins>
+      <!--  COMPILE -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>   
+      
+      <!--  SHADE -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <relocations>
+            <relocation>
+              <pattern>com.j256.ormlite</pattern>
+              <shadedPattern>com.iridium.iridiumskyblock.dependencies.com.j256.ormlite</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.bstats</pattern>
+              <shadedPattern>com.iridium.iridiumskyblock.dependencies.org.bstats</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>de.jeff_media.updatechecker</pattern>
+              <shadedPattern>com.iridium.iridiumskyblock.dependencies.de.jeff_media.updatechecker</shadedPattern>
+            </relocation>
+            
+            <relocation>
+              <pattern>de.tr7zw.changeme.nbtapi</pattern>
+              <shadedPattern>com.iridium.iridiumcore.dependencies.nbtapi</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>org.yaml.snakeyaml</pattern>
+              <shadedPattern>com.iridium.iridiumcore.dependencies.snakeyaml</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>io.papermc.lib</pattern>
+              <shadedPattern>com.iridium.iridiumcore.dependencies.paperlib</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>com.cryptomorin.xseries</pattern>
+              <shadedPattern>com.iridium.iridiumcore.dependencies.xseries</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>com.fasterxml.jackson</pattern>
+              <shadedPattern>com.iridium.iridiumcore.dependencies.fasterxml</shadedPattern>
+            </relocation>
+            
+            
+          </relocations>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    
+  </build>
+  
+  <repositories>
+    <!-- GitHub -->
+    <repository>
+      <id>Jitpack</id>
+      <url>https://jitpack.io</url>
+    </repository>
+    
+    <!-- ServerSoftware -->
+    <repository>
+      <id>Spigot</id>
+      <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+    </repository>
+    
+    <repository>
+       <id>Bungeecord</id>
+       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+    
+    <repository>
+       <id>Paper</id>
+       <url>https://papermc.io/repo/repository/maven-public/</url>
+    </repository>
+    
+    <!-- ServerPlugin -->
+    <repository>
+       <id>enderzone</id>
+       <url>https://ci.ender.zone/plugin/repository/everything/</url>
+    </repository>
+    
+    <repository>
+       <id>mvdw</id>
+       <url>https://repo.mvdw-software.com/content/groups/public/</url>
+    </repository>
+    
+    <repository>
+       <id>placeholderapi</id>
+       <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+    </repository>
+    
+    <repository>
+       <id>rosewooddev</id>
+       <url>https://repo.rosewooddev.io/repository/public/</url>
+    </repository>
+    
+    <!-- WorldEdit/WorldGuard -->
+    <repository>
+      <id>enginehub-maven</id>
+      <url>http://maven.enginehub.org/repo/</url>
+    </repository>
+  </repositories>
+  
+  
+  <dependencies>
+    
+    <!-- Shade these dependencies -->
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>23.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.j256.ormlite</groupId>
+      <artifactId>ormlite-core</artifactId>
+      <version>6.1</version>
+      <scope>compile</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.j256.ormlite</groupId>
+      <artifactId>ormlite-jdbc</artifactId>
+      <version>6.1</version>
+      <scope>compile</scope>
+    </dependency>
+    
+    <!-- Runtime dependencies -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.24</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.19.2-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.github.MilkBowl</groupId>
+      <artifactId>VaultAPI</artifactId>
+      <version>1.7</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>me.clip</groupId>
+      <artifactId>placeholderapi</artifactId>
+      <version>2.9.2</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>be.maximvdw</groupId>
+      <artifactId>MVdWPlaceholderAPI</artifactId>
+      <version>2.1.1-SNAPSHOT</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.spigotmc</groupId>
+          <artifactId>spigot</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.github.cryptomorin</groupId>
+      <artifactId>XSeries</artifactId>
+      <version>8.8.0</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>net.ess3</groupId>
+      <artifactId>EssentialsXSpawn</artifactId>
+      <version>2.16.1</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>7.2.6-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.sk89q.worldguard</groupId>
+      <artifactId>worldguard-bukkit</artifactId>
+      <version>7.0.5</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  
+  
+</project>

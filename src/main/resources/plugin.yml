@@ -1,10 +1,13 @@
-name: IridiumSkyblock
-version: ${version}
-description: Skyblock Redefined
+name: ${project.artifactId}
+version: ${project.version}
+
 main: com.iridium.iridiumskyblock.IridiumSkyblock
 api-version: '1.13'
+
 author: Peaches_MLG
-depend: [ Vault ]
+description: Skyblock Redefined
+
+depend: [Vault]
 softdepend:
   - "MVdWPlaceholderAPI"
   - "PlaceholderAPI"
@@ -15,6 +18,7 @@ softdepend:
   - "WorldGuard"
 loadbefore:
   - "Multiverse-Core"
+
 commands:
   iridiumskyblock:
     aliases: [ "island", is ]
