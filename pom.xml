@@ -11,7 +11,7 @@
   </properties>
   
   <build>
-    <finalName>${artifactId}-${version}</finalName>
+    <finalName>${project.artifactId}-${project.version}</finalName>
     <resources>
         <resource>
             <directory>src/main/resources/</directory>
