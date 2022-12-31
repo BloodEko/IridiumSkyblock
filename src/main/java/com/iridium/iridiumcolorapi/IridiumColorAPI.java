@@ -1,22 +1,24 @@
 package com.iridium.iridiumcolorapi;
 
+import java.awt.Color;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
+
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcolorapi.patterns.GradientPattern;
 import com.iridium.iridiumcolorapi.patterns.Pattern;
 import com.iridium.iridiumcolorapi.patterns.RainbowPattern;
 import com.iridium.iridiumcolorapi.patterns.SolidPattern;
-import net.md_5.bungee.api.ChatColor;
-import org.apache.commons.lang.Validate;
-import org.bukkit.Bukkit;
 
-import javax.annotation.Nonnull;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import net.md_5.bungee.api.ChatColor;
 
 public class IridiumColorAPI {
 

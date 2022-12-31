@@ -1,15 +1,16 @@
 package com.iridium.iridiumskyblock.gui;
 
+import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
+
 import com.iridium.iridiumcore.Color;
 import com.iridium.iridiumcore.gui.BackGUI;
 import com.iridium.iridiumcore.utils.ItemStackUtils;
 import com.iridium.iridiumcore.utils.StringUtils;
 import com.iridium.iridiumskyblock.IridiumSkyblock;
 import com.iridium.iridiumteams.configs.inventories.NoItemGUI;
-import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
-import org.jetbrains.annotations.NotNull;
 
 public class BorderGUI extends BackGUI {
 

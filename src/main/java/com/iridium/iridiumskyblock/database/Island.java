@@ -1,5 +1,11 @@
 package com.iridium.iridiumskyblock.database;
 
+import java.time.LocalDateTime;
+
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.jetbrains.annotations.NotNull;
+
 import com.iridium.iridiumcore.Color;
 import com.iridium.iridiumskyblock.IridiumSkyblock;
 import com.iridium.iridiumskyblock.enhancements.SizeEnhancementData;
@@ -12,11 +18,6 @@ import com.sk89q.worldedit.math.BlockVector3;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.jetbrains.annotations.NotNull;
-
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter

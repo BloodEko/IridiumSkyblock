@@ -1,9 +1,9 @@
 package com.iridium.iridiumcolorapi.patterns;
 
-import com.iridium.iridiumcolorapi.IridiumColorAPI;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.regex.Matcher;
+
+import com.iridium.iridiumcolorapi.IridiumColorAPI;
 
 /**
  * Represents a gradient color pattern which can be applied to a String.

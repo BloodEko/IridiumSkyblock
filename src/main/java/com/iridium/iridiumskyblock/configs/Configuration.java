@@ -1,13 +1,14 @@
 package com.iridium.iridiumskyblock.configs;
 
+import java.util.Arrays;
+import java.util.Map;
+
+import org.bukkit.World;
+
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.ImmutableMap;
 import com.iridium.iridiumcore.Color;
 import com.iridium.iridiumcore.Item;
-import com.cryptomorin.xseries.XMaterial;
-import org.bukkit.World;
-
-import java.util.Arrays;
-import java.util.Map;
 
 public class Configuration extends com.iridium.iridiumteams.configs.Configuration {
     public Configuration() {
