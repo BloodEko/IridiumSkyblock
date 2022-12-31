@@ -227,6 +227,20 @@
     </dependency>
     
     <dependency>
+      <groupId>org.spigotmc</groupId>
+      <artifactId>spigot</artifactId>
+      <version>1.19</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>io.papermc</groupId>
+      <artifactId>paperlib</artifactId>
+      <version>1.0.7</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
       <groupId>com.github.MilkBowl</groupId>
       <artifactId>VaultAPI</artifactId>
       <version>1.7</version>
