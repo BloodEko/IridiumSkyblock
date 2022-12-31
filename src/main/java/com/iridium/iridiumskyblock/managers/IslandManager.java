@@ -1,7 +1,7 @@
 package com.iridium.iridiumskyblock.managers;
 
-import com.iridium.iridiumcore.dependencies.nbtapi.NBTCompound;
-import com.iridium.iridiumcore.dependencies.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBTCompound;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import com.cryptomorin.xseries.XMaterial;
 import com.iridium.iridiumcore.utils.ItemStackUtils;
 import com.iridium.iridiumcore.utils.Placeholder;
