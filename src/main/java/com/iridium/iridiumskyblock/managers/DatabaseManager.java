@@ -42,6 +42,7 @@ public class DatabaseManager {
     private ForeignIslandTableManager<TeamMission, Integer> teamMissionTableManager;
     private TableManager<TeamMissionData, Integer> teamMissionDataTableManager;
     private ForeignIslandTableManager<TeamReward, Integer> teamRewardsTableManager;
+    private ForeignIslandTableManager<TeamSetting, Integer> teamSettingsManager;
 
     public void init() throws SQLException {
         LoggerFactory.setLogBackendFactory(new NullLogBackend.NullLogBackendFactory());

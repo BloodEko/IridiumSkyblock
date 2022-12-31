@@ -305,6 +305,18 @@ public class IslandManager extends TeamManager<Island, User> {
             return spawner;
         }
     }
+    
+    @Override
+    public synchronized TeamSetting getTeamSetting(Island island, String setting) {
+        Optional<TeamSetting> teamSetting = IridiumSkyblock.getInstance().getDatabaseManager().getTeamSettingsManager().getEntry(new TeamSetting(island, setting, "true"));
+        if (teamSetting.isPresent()) {
+            return teamSetting.get();
+        } else {
+            TeamSetting set = new TeamSetting(island, setting, "true");
+            IridiumSkyblock.getInstance().getDatabaseManager().getTeamSettingsManager().addEntry(set);
+            return set;
+        }
+    }
 
     @Override
     public synchronized TeamBlock getTeamBlock(Island island, XMaterial xMaterial) {
