@@ -332,11 +332,11 @@ public class IslandManager extends TeamManager<Island, User> {
 
     @Override
     public TeamEnhancement getTeamEnhancement(Island island, String enhancementName) {
-        Optional<TeamEnhancement> teamEnhancement = IridiumSkyblock.getInstance().getDatabaseManager().getEnhancementTableManager().getEntry(new TeamEnhancement(island, enhancementName, 0));
+        Optional<TeamEnhancement> teamEnhancement = IridiumSkyblock.getInstance().getDatabaseManager().getEnhancementTableManager().getEntry(new TeamEnhancement(island, enhancementName, 1));
         if (teamEnhancement.isPresent()) {
             return teamEnhancement.get();
         } else {
-            TeamEnhancement enhancement = new TeamEnhancement(island, enhancementName, 0);
+            TeamEnhancement enhancement = new TeamEnhancement(island, enhancementName, 1);
             IridiumSkyblock.getInstance().getDatabaseManager().getEnhancementTableManager().addEntry(enhancement);
             return enhancement;
         }
