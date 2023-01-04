@@ -9,4 +9,9 @@ import lombok.NoArgsConstructor;
 public class UserRank {
     public String name;
     public Item item;
+    
+    @Override
+    public String toString() {
+        return "Rank:" + name;
+    }
 }
