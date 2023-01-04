@@ -33,6 +33,9 @@ public class Configuration extends com.iridium.iridiumteams.configs.Configuratio
     /** The xoff which will be applied to the schematic pasting. */
     public int islandXoff = 1;
     
+    /** Clears the player inventory on island deletion. */
+    public boolean clearInventory = true;
+    
     public Item islandCrystal = new Item(XMaterial.NETHER_STAR, 1, "&9*** &9&lIsland Crystal &9***", Arrays.asList(
             "",
             "&9%amount% Island Crystals",

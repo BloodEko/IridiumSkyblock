@@ -4,6 +4,7 @@ import com.iridium.iridiumcore.gui.GUI;
 import com.iridium.iridiumcore.utils.InventoryUtils;
 import com.iridium.iridiumcore.utils.ItemStackUtils;
 import com.iridium.iridiumcore.utils.StringUtils;
+import com.iridium.iridiumskyblock.IridiumSkyblock;
 import com.iridium.iridiumteams.IridiumTeams;
 import com.iridium.iridiumteams.database.IridiumUser;
 import com.iridium.iridiumteams.database.Team;
@@ -54,6 +55,10 @@ public class ConfirmationGUI<T extends Team, U extends IridiumUser<T>> implement
         } else if (event.getSlot() == iridiumTeams.getInventories().confirmationGUI.yes.slot) {
             runnable.run();
             player.closeInventory();
+            
+            if (IridiumSkyblock.getInstance().getConfiguration().clearInventory) {
+                player.getInventory().clear();
+            }
         }
     }
 }
