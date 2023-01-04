@@ -132,7 +132,11 @@ public class IslandManager extends TeamManager<Island, User> {
         }
         CompletableFuture<String> schematicNameCompletableFuture = new CompletableFuture<>();
         owner.openInventory(new CreateGUI(owner.getOpenInventory().getTopInventory(), schematicNameCompletableFuture).getInventory());
+        
         return CompletableFuture.supplyAsync(() -> {
+            //TODO what if they close the GUI, the completable future will never finish, will this cause memory leaks?
+            String schematicId = schematicNameCompletableFuture.join();
+            SchematicConfig schemConfig = IridiumSkyblock.getInstance().getSchematics().schematics.get(schematicId);
 
             User user = IridiumSkyblock.getInstance().getUserManager().getUser(owner);
             Island island = new Island(name);
@@ -141,9 +145,6 @@ public class IslandManager extends TeamManager<Island, User> {
 
             user.setTeam(island);
             user.setUserRank(Rank.OWNER.getId());
-
-            String schematicId = schematicNameCompletableFuture.join();
-            SchematicConfig schemConfig = IridiumSkyblock.getInstance().getSchematics().schematics.get(schematicId);
             
             World world = getWorld(World.Environment.NORMAL);
             Location offset = new Location(world, schemConfig.xHome, schemConfig.yHome,schemConfig.zHome, 0, 0);
@@ -158,7 +159,6 @@ public class IslandManager extends TeamManager<Island, User> {
             ProtectedRegion region = new ProtectedCuboidRegion("island" + island.getId(), false, rgPos1, rgPos2);
             manager.addRegion(region);
 
-            //TODO what if they close the GUI, the completable future will never finish, will this cause memory leaks?
             generateIsland(island, schemConfig).join();
             Bukkit.getScheduler().runTask(IridiumSkyblock.getInstance(), () -> {
                 owner.teleport(island.getHome());
