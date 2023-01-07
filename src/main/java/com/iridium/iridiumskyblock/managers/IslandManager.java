@@ -171,7 +171,7 @@ public class IslandManager extends TeamManager<Island, User> {
 
     public CompletableFuture<Void> generateIsland(Island island, Schematics.SchematicConfig schematicConfig) {
         return CompletableFuture.runAsync(() -> {
-            deleteIslandBlocks(island).join();
+            //deleteIslandBlocks(island).join();
             IridiumSkyblock.getInstance().getSchematicManager().pasteSchematic(island, schematicConfig).join();
         });
     }

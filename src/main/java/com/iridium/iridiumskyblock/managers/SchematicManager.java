@@ -6,13 +6,19 @@ import com.iridium.iridiumskyblock.database.Island;
 import com.iridium.iridiumskyblock.schematics.Schematic;
 import com.iridium.iridiumskyblock.schematics.SchematicPaster;
 import com.iridium.iridiumskyblock.schematics.WorldEdit;
+
+import io.papermc.lib.PaperLib;
+
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -64,6 +70,7 @@ public class SchematicManager {
         File file = schematicFiles.getOrDefault(schematic.schematicID, schematicFiles.values().stream().findFirst().orElse(null));
         CompletableFuture<Void> completableFuture = new CompletableFuture<>();
         
+        generateChunksAsync(island, world);
         Bukkit.getScheduler().runTask(IridiumSkyblock.getInstance(), () -> {
             if (file == null) {
                 center.getBlock().setType(Material.BEDROCK);
@@ -75,5 +82,25 @@ public class SchematicManager {
         return completableFuture;
     }
 
-
+    /**
+     * Generates and loads all chunks of this island in the world asynchronously.
+     * Blocks until the operation is completed.
+     */
+    private void generateChunksAsync(Island island, World world) {
+        Location pos1 = island.getPosition1(world);
+        Location pos2 = island.getPosition2(world);
+        
+        int x1 = pos1.getBlockX() >> 4;
+        int z1 = pos1.getBlockZ() >> 4;
+        
+        int x2 = pos2.getBlockX() >> 4;
+        int z2 = pos2.getBlockZ() >> 4;
+        
+        List<Chunk> chunks = new ArrayList<>(); //to prevent GC
+        for (int x = x1; x <= x2; x++) {
+            for (int z = z1; z <= z2; z++) {
+                chunks.add(PaperLib.getChunkAtAsync(world, x, z, true).join());
+            }
+        }
+    }
 }
