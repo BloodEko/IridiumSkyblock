@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.concurrent.CancellationException;
 
 @NoArgsConstructor
 public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Command<T, U> {
@@ -29,6 +30,11 @@ public class CreateCommand<T extends Team, U extends IridiumUser<T>> extends Com
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().teamCreated
                         .replace("%prefix%", iridiumTeams.getConfiguration().prefix)
                 ));
+            }).exceptionally(throwable -> {
+                if (!(throwable.getCause() instanceof CancellationException)) {
+                    throwable.printStackTrace();
+                }
+                return null;
             });
             return;
         }

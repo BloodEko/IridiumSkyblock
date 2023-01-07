@@ -118,7 +118,7 @@ public class IslandManager extends TeamManager<Island, User> {
 
     /**
      * Creates an island, pastes a schematic, set the spawn point, 
-     * sets a worldguard region and finally teleports the player.
+     * sets a WorldGuard region and finally teleports the player.
      * Returns the newly created island.
      */
     @Override
@@ -134,7 +134,6 @@ public class IslandManager extends TeamManager<Island, User> {
         owner.openInventory(new CreateGUI(owner.getOpenInventory().getTopInventory(), schematicNameCompletableFuture).getInventory());
         
         return CompletableFuture.supplyAsync(() -> {
-            //TODO what if they close the GUI, the completable future will never finish, will this cause memory leaks?
             String schematicId = schematicNameCompletableFuture.join();
             SchematicConfig schemConfig = IridiumSkyblock.getInstance().getSchematics().schematics.get(schematicId);
 
@@ -167,9 +166,6 @@ public class IslandManager extends TeamManager<Island, User> {
             });
 
             return island;
-        }).exceptionally(throwable -> {
-            throwable.printStackTrace();
-            return null;
         });
     }
 
