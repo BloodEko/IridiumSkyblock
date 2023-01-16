@@ -2,6 +2,7 @@ package com.iridium.iridiumteams.listeners;
 
 import java.util.Optional;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,11 +28,14 @@ public class PlayerInteractListener<T extends Team, U extends IridiumUser<T>> im
     public void onInteract(PlayerInteractEvent event) {
         if (!(event.getClickedBlock().getState() instanceof InventoryHolder)) {
             return;
-        }        
+        }
         Player player = event.getPlayer();
         U user = iridiumTeams.getUserManager().getUser(player);
-        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getClickedBlock().getLocation());
+        if (user.isBypassing() || player.getGameMode() == GameMode.SPECTATOR) {
+            return;
+        }
         
+        Optional<T> team = iridiumTeams.getTeamManager().getTeamViaLocation(event.getClickedBlock().getLocation());
         if (team.isPresent()) {
             if (!iridiumTeams.getTeamManager().getTeamPermission(team.get(), user, PermissionType.OPEN_CONTAINERS)) {
                 player.sendMessage(StringUtils.color(iridiumTeams.getMessages().cannotOpenContainers
