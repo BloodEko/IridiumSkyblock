@@ -75,6 +75,7 @@ public class DatabaseManager {
         this.teamMissionTableManager = new ForeignIslandTableManager<>(connectionSource, TeamMission.class, Comparator.comparing(TeamMission::getTeamID).thenComparing(TeamMission::getMissionName));
         this.teamMissionDataTableManager = new TableManager<>(connectionSource, TeamMissionData.class, Comparator.comparing(TeamMissionData::getMissionID).thenComparing(TeamMissionData::getMissionIndex));
         this.teamRewardsTableManager = new ForeignIslandTableManager<>(connectionSource, TeamReward.class, Comparator.comparing(TeamReward::getTeamID));
+        this.teamSettingsManager = new ForeignIslandTableManager<>(connectionSource, TeamSetting.class, Comparator.comparing(TeamSetting::getTeamID).thenComparing(TeamSetting::getSetting));
     }
 
     /**
