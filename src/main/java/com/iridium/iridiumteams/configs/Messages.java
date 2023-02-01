@@ -42,6 +42,7 @@ public class Messages {
     public String cannotDemoteUser;
     public String cannotBreakBlocks;
     public String cannotPlaceBlocks;
+    public String cannotInteract;
     public String cannotOpenContainers;
     public String promotedPlayer;
     public String userPromotedPlayer;
@@ -170,6 +171,7 @@ public class Messages {
         cannotDemoteUser = "%prefix% &7You cannot demote this User";
         cannotBreakBlocks = "%prefix% &7You cannot break blocks in this " + team + ".";
         cannotPlaceBlocks = "%prefix% &7You cannot place blocks in this " + team + ".";
+        cannotInteract = "%prefix% &7You cannot interact in this " + team + ".";
         cannotOpenContainers = "%prefix% &7You cannot open containers in this " + team + ".";
         promotedPlayer = "%prefix% &7You have promoted %player% to %rank%.";
         userPromotedPlayer = "%prefix% &7%promoter% has promoted %player% to %rank%.";
