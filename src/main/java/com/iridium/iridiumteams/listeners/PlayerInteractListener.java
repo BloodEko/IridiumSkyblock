@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketEntityEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -23,7 +23,8 @@ import com.iridium.iridiumteams.database.Team;
 import lombok.AllArgsConstructor;
 
 /**
- * A listener which restricts non-allowed container opening.
+ * A listener which restricts non-allowed player interaction.
+ * Especially with containers, buckets and crops.
  */
 @AllArgsConstructor
 public class PlayerInteractListener<T extends Team, U extends IridiumUser<T>> implements Listener {
@@ -50,7 +51,20 @@ public class PlayerInteractListener<T extends Team, U extends IridiumUser<T>> im
      * Cancels the taking of of water/lava on other islands.
      */
     @EventHandler(ignoreCancelled=true)
-    public void onTakeWater(PlayerBucketFillEvent event) {
+    public void onFillBucket(PlayerBucketFillEvent event) {
+        ifOutsideIsland(
+            event.getBlock().getLocation(),
+            event.getPlayer(),
+            PermissionType.BUCKET,
+            iridiumTeams.getMessages().cannotInteract,
+            () -> event.setCancelled(true));
+    }
+    
+    /**
+     * Cancels the placement of water/lava and entities on other islands.
+     */
+    @EventHandler(ignoreCancelled=true)
+    public void onEmptyBucket(PlayerBucketEmptyEvent event) {
         ifOutsideIsland(
             event.getBlock().getLocation(),
             event.getPlayer(),
@@ -70,27 +84,6 @@ public class PlayerInteractListener<T extends Team, U extends IridiumUser<T>> im
             PermissionType.BUCKET,
             iridiumTeams.getMessages().cannotInteract,
             () -> event.setCancelled(true));
-    }
-    
-    /**
-     * Cancels the placement of water/lava on other islands.
-     */
-    @EventHandler(ignoreCancelled=true)
-    public void onPlaceWater(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-            return;
-        }
-        Material type = event.getItem() == null 
-               ? null : event.getItem().getType();
-        
-        if (type == Material.WATER_BUCKET || type == Material.LAVA_BUCKET) {
-            ifOutsideIsland(
-                event.getClickedBlock().getLocation(),
-                event.getPlayer(),
-                PermissionType.BUCKET,
-                iridiumTeams.getMessages().cannotInteract,
-                () -> event.setCancelled(true));
-        }
     }
     
     /**
